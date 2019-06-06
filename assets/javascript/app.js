@@ -50,14 +50,14 @@ let questions = [
     answer: "Marcy"
     },
     {
-    question:"abc",
-    panswers:["1"],
-    answer:"abc"
+    question:"How many seasons did Married with Children run?",
+    panswers:["7","11","13","15"],
+    answer:"11"
     },
     {
-    question:"def",
-    panswers:["1","2"],
-    answer: "def,"
+    question:"Al Bundy founded what orginazition?",
+    panswers:["Yes Ma'am","No Ma'am","Bon Bon Voyage","Bowling Shoe Salesmen"],
+    answer: "No Ma'am",
     }
 ]
 // create a function to pass through the arrays and return coordination question, possible answer and answer
