@@ -1,5 +1,8 @@
 // this is an object with questions, answers and images for the game
 
+
+
+alert("test");
 let questions = [
     {
         question: "What was Al Bundy's Profession",
@@ -77,66 +80,127 @@ let game = {
     correct: 0,
     incorrect: 0,
 
-    countdown: function () {       
+    countdown: function () {
         // * decrement counter
-        counterStart--;
+        this.counter --;
         // * use jquery to put dynamically put logic onto the page
-        card.html("<h2>" + counterStart + "</h2>")
-        // * if statement
-        //     * if time is up, run time up function
-        if(counterStart=0){this.timeUp()}
+       $("#counter-number").text(game.counter);
+    
+        if (this.counter===0)
+         { this.timeUp() };
 
     },
 
     loadQuestion: function () {
-    //     * set timer 
-    //     * timer = setInterval(game.countdown, 1000) 
+        //     * set timer 
+        //     * timer = setInterval(game.countdown, 1000) 
         timer = setInterval(game.countdown, 1000);
-    // * dynamicatly add question into card variable
-    //      * *hint* card.html ("<h2>" + "</h2>")
-        card.html("<h2>"+ questions[i].question +"<h2>")
-    // * for loop to run through the
-    //     * questions
-    //     * a dynamically added buttons with answer options 
-               
-     },
+        // * dynamicatly add question into card variable
+        //      * *hint* card.html ("<h2>" + "</h2>")
+        card.html("<h2>" + questions[this.currentQuestion.question] + "<h2>")
+        console.log(this.currentQuestion)
+        // * for loop to run through the
+        //     * questions
+        for(i=0; i < questions[this.currentQuestion].length; i++){
+          card.append("<button class='answer-button' id='button' 'data-name'"questions[this.currentQuestion].question.panswers[i]+">"+questions.[this.currentQuestion].panswers[i]+"</button>")
+        }
+       
 
-    nextQuestion: function () { 
-    //     * set the counter
-    //     game.counter = countStartNumber
-        game.counter = countStartNumber;
-    // * use jquery to change the text of the game counter
-    // * increment the currentQuestion by one
-        this.currentQuestion++;
-    // * call the loadQuestion function
-         this.loadQuestion();
+
+        $.each(questions[i].question, function () {}
+        //     * a dynamically added buttons with answer options 
+        $.each(questions[i].panswers, function () {}
     },
 
-    timeUp: function () { },
+    nextQuestion: function () {
+        // * set the counter
+        //  game.counter = countStartNumber
+        game.counter = countStartNumber;
+        // * use jquery to change the text of the game counter
+        // * increment the currentQuestion by one
+        this.currentQuestion++;
+        // * call the loadQuestion function
+        this.loadQuestion();
+    },
 
-    results: function () { },
+    timeUp: function () {
+        // * clearInterval(timer)
+        clearInterval(timer)
+        // * use jquery to change the text of the game counter
+        $("#counter-number").html(game.counter);
+        // * dynamically add out of time to the card
+        card.html("<h2>Out of Time!</h2>")
+        // * append the Correct answer to the card
+        card.append("<h2> The correct answer is:" + questions[this.currentQuestion].answer);
+    
+        // * append image/gif to the card 
+        card.append("<h2> The correct answer is:" + questions[this.currentQuestion].meme);
 
-    clicked: function () { },
 
-    answeredIncorrectly: function () { },
+        if(this.currentQuestion === questions.length -1){
+            setTimeout(game.results, 5 * 1000)
+        }
+        else{
+            setTimeout(game.nextQuestion, 5*1000);
 
-    answeredCorrectly: function () { },
+        }
+    },
+
+    results: function () {
+        // * clearInterval
+        clearInterval(timer);
+        // *  dynamically add html to let them know of there results
+        // * use jquery to add html of game.counter to the id of counter-number
+        // * add how many correct answers they got
+        // * add how many incorrect answer they got
+        // * add how many unanswered 
+        // * add a start over button
+    },
+
+    clicked: function () { 
+        // * clearInterval(timer)
+        // * if/ else statment for when an answer is clicked
+        // * if correct run answeredCorrectly() function
+        // * else run answeredIncorrectly() function
+    },
+
+    answeredIncorrectly: function () {
+        // * add a point to the incorrect column
+        // * clearInterval(timer)
+        // * dynamically add html to let them know they are wrong
+        // * add the right answer
+        // * add the image 
+        // * if / else statment
+        // *if no more question wait three seconds then show result
+        // *else wait three seconds and show next question
+     },
+
+    answeredCorrectly: function () {
+        // * add a point to correct column
+        // * clearInterval(timer);
+        // * dynamically add html to let them know they are    correct
+        // * add image
+        // * if / else statment
+        // *if no more question wait three seconds then show result
+        // *else wait three seconds and show next question
+     },
 
     reset: function () { },
 
 }
 
-$(document).on("click", "#start", function(){
-        $("#sub-wrapper").prepend("<h2>Time Remaining: <span id='counter-number'>30</span> Seconds</h2>");
-        game.loadQuestion();
-    });
-
-$(document).on("click", ".answer-button", function(e){
-        game.clicked(e);
+$(document).on("click", "#start", function () {
+    $("#sub-wrapper").prepend("<h2>Time Remaining: <span id='counter-number'>30</span> Seconds</h2>");
+    console.log("#start")
+    game.loadQuestion();
 });
 
-$(document).on("click", "#start-over", function() {
-         game.reset();
+$(document).on("click", ".answer-button", function (event) {
+    game.clicked(event);
+});
+
+$(document).on("click", "#start-over", function () {
+    game.reset();
 });
 
 
