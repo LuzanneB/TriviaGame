@@ -66,7 +66,7 @@ let questions = [
 // this is the area of index that will change
 let card = $("#quiz-area")
 
-let counterStart = 5;
+let counterStart = 15;
 let timer;
 
 let game = {
@@ -75,18 +75,17 @@ let game = {
     counter: counterStart,
     correct: 0,
     incorrect: 0,
+    unanswered:0,
 
 
     countdown: function () {
-        console.log("countdown called");
+       
         
         // * decrement counter
         game.counter--;
         // * use jquery to put dynamically put logic onto the page
        $("#counter-number").text(game.counter);
-            console.log("counter " + game.counter);
         if (game.counter === 0){
-            console.log("counter is 0");
             game.timeUp(); 
         };
     },
@@ -114,6 +113,7 @@ let game = {
         //  game.counter = countStartNumber
         game.counter = counterStart;
         // * use jquery to change the text of the game counter
+        $("#counter-number").html(game.counter);
         // * increment the currentQuestion by one
         game.currentQuestion++;
         // * call the loadQuestion function
@@ -123,6 +123,7 @@ let game = {
     timeUp: function () {
         // * clearInterval(timer)
         clearInterval(timer)
+        game.unanswered++;
         // * use jquery to change the text of the game counter
         $("#counter-number").html(game.counter);
         // * dynamically add out of time to the card
@@ -147,8 +148,12 @@ let game = {
         // * clearInterval
         clearInterval(timer);
         // *  dynamically add html to let them know of there results
+        card.html("<h1>Here are your results!</h1>");
         // * use jquery to add html of game.counter to the id of counter-number
         // * add how many correct answers they got
+        card.html("<h1>Incorrect: " + this.correct+ "</h1>");
+        card.html("<h1>Incorrect: " + this.incorrect+ "</h1>");
+        card.html("<h1>Incorrect: " + this.unanswered+ "</h1>");
         // * add how many incorrect answer they got
         // * add how many unanswered 
         // * add a start over button
@@ -158,8 +163,9 @@ let game = {
         // * clearInterval(timer)
         clearInterval(timer);
         // * if/ else statment for when an answer is clicked
-        if ($(event.target).attr("data-name")===questions[game.currentQuestion].answer){
+        if ($(event.target).attr("data-name") === questions[game.currentQuestion].answer){
             game.answeredCorrectly();
+
         }
         else {
             game.answeredIncorrectly();
@@ -174,43 +180,38 @@ let game = {
         // * clearInterval(timer)
         clearInterval(timer);
         // * dynamically add html to let them know they are wrong
-        card.html("<h1>That was incorrect!</h1>")
+        card.html("<h1>That was incorrect!</h1>");
         // * add the right answer
         // * add the image 
         card.append("<h1> The correct answer is: " + questions[game.currentQuestion].answer) + "</h1>";
-        card.append("<img src class='meme'='"+questions[game.currentQuestion].meme +"'/>")
+         card.append("<img class='meme' src='"+questions[game.currentQuestion].meme +"'/>");
         // * if / else statment
-        if (game.currentQuestion === questions[game.currentQuestion.length-1]){
-            setTimeout(game.results, 5*1000);
-            
-        }
-        else 
-            setTimeout(this.nextQuestion(),5*1000);
-        // *if no more question wait three seconds then show result
-        // *else wait three seconds and show next question
+        if (game.currentQuestion === questions.length - 1) {
+            setTimeout(game.results, 5 * 1000);
+          }
+          else {
+            setTimeout(game.nextQuestion, 5 * 1000);
+          }
+       
      },
 
     answeredCorrectly: function () {
         game.correct++;
+        console.log("correct: "+ game.correct);
         // * clearInterval(timer)
         clearInterval(timer);
         // * dynamically add html to let them know they are wrong
         card.html("<h1>That was Correct!</h1>")
               // * add the image 
-        card.append("<img src class='meme'='"+questions[game.currentQuestion].meme +"'/>")
+        card.append("<img class='meme' src='"+questions[game.currentQuestion].meme +"'/>");
         // * if / else statment
-        if (game.currentQuestion===questions[game.currentquestions.length-1]){
-            setTimeout(game.results(), 5*1000);  
-        }
-        else 
-            setTimeout(this.nextQuestion(),5*1000);
-        // * add a point to correct column
-        // * clearInterval(timer);
-        // * dynamically add html to let them know they are    correct
-        // * add image
-        // * if / else statment
-        // *if no more question wait three seconds then show result
-        // *else wait three seconds and show next question
+        if (game.currentQuestion === questions.length - 1) {
+            setTimeout(game.results, 5 * 1000);
+          }
+          else {
+            setTimeout(game.nextQuestion,5*1000);
+          }
+       
      },
 
     reset: function () { },
@@ -218,13 +219,13 @@ let game = {
 }
 
 $(document).on("click", "#start", function () {
-    $("#sub-wrapper").prepend("<h1>Time Remaining: <span id='counter-number'>5</span> Seconds</h1>");
+    $("#sub-wrapper").prepend("<h1>Time Remaining: <span id='counter-number'>15</span> Seconds</h1>");
         game.loadQuestion();
 });
 
 $(document).on("click", ".answer-button", function (event) {
     game.clicked(event);
-    console.log(event);
+  
 });
 
 $(document).on("click", "#start-over", function () {
