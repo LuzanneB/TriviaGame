@@ -1,0 +1,33 @@
+body{
+    background:url(../images/backgroundresized.jpg);
+    width:100%;
+    overflow: hidden;
+    font-family: 'Francois One', sans-serif;
+    width:960px;
+       
+}
+#title{
+    font-size: 70px;
+    text-align: center;
+}
+button{
+    font-size:40px;
+    padding:10px 20px 10px 20px;
+    width: 40%;
+    display:block;
+    margin:auto;
+}
+h1{
+    font-size:50px;
+    text-align: center;
+}
+.answer-button{
+    font-size:40px;
+    padding:10px 20px 10px 20px;
+    width: 40%;
+    display:block;
+    margin:auto;
+}
+.meme{
+    margin:auto;
+}

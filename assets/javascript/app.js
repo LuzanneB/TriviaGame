@@ -1,7 +1,7 @@
 // this is an object with questions, answers and images for the game
 let questions = [
     {
-        question: "What was Al Bundy's Profession",
+        question: "What was Al Bundy's Profession?",
         panswers: ["Car Salesmen", "Shoe Salesmen", "Doctor", "Accountant"],
         answer: "Shoe Salesman",
         meme: "assets/images/shoesaleman.jpg"
@@ -66,7 +66,7 @@ let questions = [
 // this is the area of index that will change
 let card = $("#quiz-area")
 
-let counterStart = 10;
+let counterStart = 30;
 let timer;
 
 let game = {
@@ -97,7 +97,7 @@ let game = {
         timer = setInterval(game.countdown,1000);
         // * dynamicatly add question into card variable
         //      * *hint* card.html ("<h2>" + "</h2>")
-        card.html("<h2>" + questions[game.currentQuestion].question + "<h2>");
+        card.html("<h1>" + questions[game.currentQuestion].question + "</h1>");
 
                 // * for loop to run through the
         //     * questions
@@ -126,12 +126,12 @@ let game = {
         // * use jquery to change the text of the game counter
         $("#counter-number").html(game.counter);
         // * dynamically add out of time to the card
-        card.html("<h2>Out of Time!</h2>")
+        card.html("<h1>Out of Time!</h1>")
         // * append the Correct answer to the card
-        card.append("<h2> The correct answer is:" + questions[game.currentQuestion].answer);
+        card.append("<h1> The correct answer is:" + questions[game.currentQuestion].answer)+"</h1>";
     
         // * append image/gif to the card 
-        card.append("<img src='"+questions[game.currentQuestion].meme +"'/>");
+        card.append("<img class='meme' src='"+questions[game.currentQuestion].meme +"'/>");
         setTimeout(game.nextQuestion, 5*1000);
 
         // if(this.currentQuestion === questions.length -1){
@@ -159,10 +159,10 @@ let game = {
         clearInterval(timer);
         // * if/ else statment for when an answer is clicked
         if ($(event.target).attr("data-name")===questions[game.currentQuestion].answer){
-            this.answeredCorrectly();
+            game.answeredCorrectly();
         }
         else {
-            this.answeredIncorrectly();
+            game.answeredIncorrectly();
         }
         // * if correct run answeredCorrectly() function
         // * else run answeredIncorrectly() function
@@ -174,11 +174,11 @@ let game = {
         // * clearInterval(timer)
         clearInterval(timer);
         // * dynamically add html to let them know they are wrong
-        card.html("<h2>That was incorrect!</h2>")
+        card.html("<h1>That was incorrect!</h1>")
         // * add the right answer
         // * add the image 
-        card.append("<h2> The correct answer is:" + questions[game.currentQuestion].answer);
-        card.append("<img src='"+questions[game.currentQuestion].meme +"'/>")
+        card.append("<h1> The correct answer is:" + questions[game.currentQuestion].answer) + "</h1>";
+        card.append("<img src class='meme'='"+questions[game.currentQuestion].meme +"'/>")
         // * if / else statment
         if (game.currentQuestion === questions[game.currentQuestion.length-1]){
             setTimeout(game.results, 5*1000);
@@ -195,9 +195,9 @@ let game = {
         // * clearInterval(timer)
         clearInterval(timer);
         // * dynamically add html to let them know they are wrong
-        card.html("<h2>That was Correct!</h2>")
+        card.html("<h1>That was Correct!</h1>")
               // * add the image 
-     
+        card.append("<img src class='meme'='"+questions[game.currentQuestion].meme +"'/>")
         // * if / else statment
         if (game.currentQuestion===questions[game.currentquestions.length-1]){
             setTimeout(game.results(), 5*1000);  
@@ -218,7 +218,7 @@ let game = {
 }
 
 $(document).on("click", "#start", function () {
-    $("#sub-wrapper").prepend("<h2>Time Remaining: <span id='counter-number'>30</span> Seconds</h2>");
+    $("#sub-wrapper").prepend("<h1>Time Remaining: <span id='counter-number'>30</span> Seconds</h1>");
         game.loadQuestion();
 });
 
