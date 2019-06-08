@@ -102,7 +102,7 @@ let game = {
         //     * questions
         //     * a dynamically added buttons with answer options 
         for(i=0; i < questions[game.currentQuestion].panswers.length; i++){
-          card.append("<button class='answer-button' id='button' 'data-name'"+questions[this.currentQuestion].panswers[i]+">"+questions[this.currentQuestion].panswers[i]+"</button>")
+          card.append("<button class='answer-button' id='button' data-name= '"+questions[this.currentQuestion].panswers[i]+"'>"+questions[this.currentQuestion].panswers[i]+"</button>")
         }
          
        
@@ -151,9 +151,9 @@ let game = {
         card.html("<h1>Here are your results!</h1>");
         // * use jquery to add html of game.counter to the id of counter-number
         // * add how many correct answers they got
-        card.html("<h1>Incorrect: " + this.correct+ "</h1>");
-        card.html("<h1>Incorrect: " + this.incorrect+ "</h1>");
-        card.html("<h1>Incorrect: " + this.unanswered+ "</h1>");
+        card.html("<h1>Incorrect: " + game.correct + "</h1>");
+        card.html("<h1>Incorrect: " + game.incorrect + "</h1>");
+        card.html("<h1>Incorrect: " + game.unanswered + "</h1>");
         // * add how many incorrect answer they got
         // * add how many unanswered 
         // * add a start over button
@@ -163,7 +163,7 @@ let game = {
         // * clearInterval(timer)
         clearInterval(timer);
         // * if/ else statment for when an answer is clicked
-        if ($(event.target).attr("data-name") === questions[game.currentQuestion].answer){
+        if ($("#button").attr("data-name") === questions[game.currentQuestion].answer){
             game.answeredCorrectly();
 
         }
@@ -225,6 +225,7 @@ $(document).on("click", "#start", function () {
 
 $(document).on("click", ".answer-button", function (event) {
     game.clicked(event);
+    console.log("you clicked an answer");
   
 });
 
