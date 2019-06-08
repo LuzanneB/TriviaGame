@@ -66,7 +66,7 @@ let questions = [
 // this is the area of index that will change
 let card = $("#quiz-area")
 
-let counterStart = 30;
+let counterStart = 5;
 let timer;
 
 let game = {
@@ -128,7 +128,7 @@ let game = {
         // * dynamically add out of time to the card
         card.html("<h1>Out of Time!</h1>")
         // * append the Correct answer to the card
-        card.append("<h1> The correct answer is:" + questions[game.currentQuestion].answer)+"</h1>";
+        card.append("<h1> The correct answer is: " + questions[game.currentQuestion].answer)+"</h1>";
     
         // * append image/gif to the card 
         card.append("<img class='meme' src='"+questions[game.currentQuestion].meme +"'/>");
@@ -177,7 +177,7 @@ let game = {
         card.html("<h1>That was incorrect!</h1>")
         // * add the right answer
         // * add the image 
-        card.append("<h1> The correct answer is:" + questions[game.currentQuestion].answer) + "</h1>";
+        card.append("<h1> The correct answer is: " + questions[game.currentQuestion].answer) + "</h1>";
         card.append("<img src class='meme'='"+questions[game.currentQuestion].meme +"'/>")
         // * if / else statment
         if (game.currentQuestion === questions[game.currentQuestion.length-1]){
@@ -218,7 +218,7 @@ let game = {
 }
 
 $(document).on("click", "#start", function () {
-    $("#sub-wrapper").prepend("<h1>Time Remaining: <span id='counter-number'>30</span> Seconds</h1>");
+    $("#sub-wrapper").prepend("<h1>Time Remaining: <span id='counter-number'>5</span> Seconds</h1>");
         game.loadQuestion();
 });
 
