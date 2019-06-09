@@ -3,7 +3,7 @@ let questions = [
     {
         question: "What was Al Bundy's Profession?",
         panswers: ["Car Salesmen", "Shoe Salesmen", "Doctor", "Accountant"],
-        answer: "Shoe Salesman",
+        answer: "Shoe Salesmen",
         meme: "assets/images/shoesaleman.jpg"
     },
     {
@@ -96,13 +96,13 @@ let game = {
         timer = setInterval(game.countdown,1000);
         // * dynamicatly add question into card variable
         //      * *hint* card.html ("<h2>" + "</h2>")
-        card.html("<h1>" + questions[game.currentQuestion].question + "</h1>");
+        card.html("<h1>" + questions[this.currentQuestion].question + "</h1>");
 
                 // * for loop to run through the
         //     * questions
         //     * a dynamically added buttons with answer options 
-        for(i=0; i < questions[game.currentQuestion].panswers.length; i++){
-          card.append("<button class='answer-button' id='button' data-name= '"+questions[this.currentQuestion].panswers[i]+"'>"+questions[this.currentQuestion].panswers[i]+"</button>")
+        for(i=0; i < questions[this.currentQuestion].panswers.length; i++){
+          card.append("<button class='answer-button' id='button' data-name='" + questions[this.currentQuestion].panswers[i] + "'>"+questions[this.currentQuestion].panswers[i]+"</button>")
         }
          
        
@@ -161,12 +161,16 @@ let game = {
 
     clicked: function (event) { 
         // * clearInterval(timer)
-        clearInterval(timer);
-        // * if/ else statment for when an answer is clicked
-        if ($("#button").attr("data-name") === questions[game.currentQuestion].answer){
-            game.answeredCorrectly();
 
+        clearInterval(timer);
+        console.log ("you clicked: " + $(".answer-button").attr("data-name"));
+        console.log("the answer is: " + questions[this.currentQuestion].answer);
+               // * if/ else statment for when an answer is clicked
+        if (($(event).attr("data-name")) === questions[this.currentQuestion].answer){           
+            
+            game.answeredCorrectly();
         }
+            
         else {
             game.answeredIncorrectly();
         }
@@ -223,10 +227,9 @@ $(document).on("click", "#start", function () {
         game.loadQuestion();
 });
 
-$(document).on("click", ".answer-button", function (event) {
+$(document).on("click", "#button", function (event) {
     game.clicked(event);
-    console.log("you clicked an answer");
-  
+ 
 });
 
 $(document).on("click", "#start-over", function () {
