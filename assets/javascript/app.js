@@ -163,10 +163,10 @@ let game = {
         // * clearInterval(timer)
 
         clearInterval(timer);
-        console.log ("you clicked: " + $(".answer-button").attr("data-name"));
+        console.log ("you clicked: " + $(event.target).attr("data-name"));
         console.log("the answer is: " + questions[this.currentQuestion].answer);
                // * if/ else statment for when an answer is clicked
-        if (($(event).attr("data-name")) === questions[this.currentQuestion].answer){           
+        if (($(event.target).attr("data-name")) === questions[this.currentQuestion].answer){           
             
             game.answeredCorrectly();
         }
@@ -229,7 +229,7 @@ $(document).on("click", "#start", function () {
 
 $(document).on("click", "#button", function (event) {
     game.clicked(event);
- 
+    
 });
 
 $(document).on("click", "#start-over", function () {
