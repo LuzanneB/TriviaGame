@@ -64,7 +64,7 @@ let questions = [
 ]
 
 // this is the area of index that will change
-let card = $("#quiz-area")
+let card = $("#quiz-area");
 
 let counterStart = 15;
 let timer;
